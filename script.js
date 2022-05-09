@@ -10,6 +10,14 @@ let newBut3
 let icon1
 let icon2
 
+let popup
+let popupInfo
+let todoToEdit
+let popupInput
+let popupAddBtn
+let popupCloseBtn
+
+let editedLi
 
 
 const main = () => {
@@ -22,11 +30,20 @@ const prepareDomElements = () => {
     errorInfo = document.querySelector('.error-info')
     addBtn = document.querySelector('.btn-add')
     ulList = document.querySelector('.todolist ul')
+    popup = document.querySelector('.popup')
+    popupInfo = document.querySelector('.popup-info')
+    popupInput = document.querySelector('.popup-input')
+    popupAddBtn = document.querySelector('.accept')
+    popupCloseBtn = document.querySelector('.cancel')
+    
+
 }
 
 const prepareDomEvents = () => {
     addBtn.addEventListener('click', addNewTask)
     ulList.addEventListener('click', checkClick)
+    popupCloseBtn.addEventListener('click', closePopup)
+    popupAddBtn.addEventListener('click', changeToDoText)
 }
 
 const addNewTask = () => {
@@ -73,11 +90,35 @@ const checkClick = e => {
         e.target.classList.toggle('completed')
     }
     else if(e.target.matches('.edit')) {
-
+        editTodo(e)
     }
     else if(e.target.matches('.delete')){
 
     }
     
 }
+
+const editTodo = e => {
+    todoToEdit = e.target.closest('li')
+    popupInput.value = todoToEdit.firstChild.textContent
+    popup.style.display = "flex"
+    
+}
+
+const closePopup = () => {
+    popup.style.display = "none"
+    popupInfo.textContent = ""
+    
+}
+
+const changeToDoText = () => {
+    if(popupInput.value !== ''){
+        todoToEdit.firstChild.textContent = popupInput.value
+        closePopup()
+    }
+    else{
+        popupInfo.textContent = "Musisz podać treść"
+    }
+}
 document.addEventListener('DOMContentLoaded', main)
+
