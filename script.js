@@ -17,9 +17,6 @@ let popupInput
 let popupAddBtn
 let popupCloseBtn
 
-let editedLi
-
-
 const main = () => {
     prepareDomElements()
     prepareDomEvents()
@@ -44,6 +41,7 @@ const prepareDomEvents = () => {
     ulList.addEventListener('click', checkClick)
     popupCloseBtn.addEventListener('click', closePopup)
     popupAddBtn.addEventListener('click', changeToDoText)
+    toDoInput.addEventListener('keyup', checkEnterClick)
 }
 
 const addNewTask = () => {
@@ -93,6 +91,7 @@ const checkClick = e => {
         editTodo(e)
     }
     else if(e.target.matches('.delete')){
+        deleteTodo(e)
 
     }
     
@@ -119,6 +118,22 @@ const changeToDoText = () => {
     else{
         popupInfo.textContent = "Musisz podać treść"
     }
+}
+
+const deleteTodo = e => {
+    e.target.closest('li').remove()
+    const allTodos = document.querySelectorAll('li')
+    if(allTodos.length == 0){
+        errorInfo.textContent = "Brak zadań na liście"
+
+    }
+}
+
+const checkEnterClick = e => {
+    if(e.key === 'Enter'){
+        addNewTask()
+    }
+    
 }
 document.addEventListener('DOMContentLoaded', main)
 
