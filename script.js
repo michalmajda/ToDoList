@@ -56,7 +56,7 @@ const addNewTask = () => {
         errorInfo.textContent = ""
     }
     else{
-        errorInfo.textContent = "Wpisz treść zadania"
+        errorInfo.textContent = "Type a task..."
     }
 }
 
@@ -116,7 +116,7 @@ const changeToDoText = () => {
         closePopup()
     }
     else{
-        popupInfo.textContent = "Musisz podać treść"
+        popupInfo.textContent = "You need to type something..."
     }
 }
 
@@ -124,7 +124,7 @@ const deleteTodo = e => {
     e.target.closest('li').remove()
     const allTodos = document.querySelectorAll('li')
     if(allTodos.length == 0){
-        errorInfo.textContent = "Brak zadań na liście"
+        errorInfo.textContent = "No tasks on the list"
 
     }
 }
